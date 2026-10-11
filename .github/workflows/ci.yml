@@ -1,0 +1,52 @@
+name: Student Management System CI
+
+# Trigger workflow on pushes and pull requests to the main branch, plus manual dispatch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Grant minimal permissions required for checking out and running tests
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Run Automated Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+          cache-dependency-path: |
+            backend/package-lock.json
+            frontend/package-lock.json
+
+      - name: Install backend dependencies
+        run: npm ci
+        working-directory: backend
+
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend
+
+      - name: Run backend automated tests
+        run: npm test
+        working-directory: backend
+
+      - name: Run frontend automated tests
+        run: npm test
+        working-directory: frontend
+
+      - name: Verify frontend production build
+        run: npm run build
+        working-directory: frontend
