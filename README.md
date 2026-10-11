@@ -552,3 +552,4 @@ For your college viva or practical evaluation, follow this 4-step demonstration 
    - Delete the student using the confirmation modal.
 4. **Demonstrate Continuous Integration in GitHub**:
    - Show the GitHub Actions tab in your browser with the green CI build badge.
+   CI Trigger Test: GitHub Actions runs automatically on push.
