@@ -511,4 +511,107 @@ describe('Student Management System - Frontend Tests', () => {
     fireEvent.keyDown(window, { key: 'Escape' });
     expect(handleClose).toHaveBeenCalledTimes(1);
   });
+
+  // 17. Administrator logout via Header
+  it('allows administrator to log out via Header logout button', async () => {
+    api.getStudents.mockResolvedValueOnce({
+      success: true,
+      count: 0,
+      data: [],
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Logout/i })).toBeInTheDocument();
+    });
+
+    const headerLogoutBtn = screen.getByRole('button', { name: /Logout/i });
+    fireEvent.click(headerLogoutBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText('Student Management System')).toBeInTheDocument();
+      expect(screen.getByText('ADMIN ACCESS CREDENTIALS')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Sign In to Dashboard/i })).toBeInTheDocument();
+    });
+  });
+
+  // 18. Administrator logout via Sidebar
+  it('allows administrator to log out via Sidebar logout button', async () => {
+    api.getStudents.mockResolvedValueOnce({
+      success: true,
+      count: 0,
+      data: [],
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Log Out/i })).toBeInTheDocument();
+    });
+
+    const sidebarLogoutBtn = screen.getByRole('button', { name: /Log Out/i });
+    fireEvent.click(sidebarLogoutBtn);
+
+    await waitFor(() => {
+      expect(screen.getByText('Student Management System')).toBeInTheDocument();
+      expect(screen.getByRole('button', { name: /Sign In to Dashboard/i })).toBeInTheDocument();
+    });
+  });
+
+  // 19. Full login to dashboard transition
+  it('transitions from login screen to dashboard upon submitting valid admin credentials', async () => {
+    api.getStudents.mockResolvedValue({
+      success: true,
+      count: mockStudents.length,
+      data: mockStudents,
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Logout/i })).toBeInTheDocument();
+    });
+
+    // Log out first to show login screen
+    fireEvent.click(screen.getByRole('button', { name: /Logout/i }));
+
+    await waitFor(() => {
+      expect(screen.getByRole('button', { name: /Sign In to Dashboard/i })).toBeInTheDocument();
+    });
+
+    // Auto-fill and sign in
+    fireEvent.click(screen.getByRole('button', { name: /Auto-Fill/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Sign In to Dashboard/i }));
+
+    await waitFor(() => {
+      expect(screen.getByText('College Admin')).toBeInTheDocument();
+      expect(screen.getByText('Student Overview')).toBeInTheDocument();
+    });
+  });
+
+  // 20. Restores stored session from localStorage
+  it('restores stored admin session from localStorage', async () => {
+    const customUser = {
+      username: 'superadmin',
+      email: 'superadmin@example.edu',
+      name: 'Super Admin Officer',
+      role: 'Administrator',
+      avatarInitials: 'SA',
+    };
+    localStorage.setItem('sms_auth_user', JSON.stringify(customUser));
+
+    api.getStudents.mockResolvedValueOnce({
+      success: true,
+      count: 0,
+      data: [],
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Super Admin Officer')).toBeInTheDocument();
+      expect(screen.getByText('SA')).toBeInTheDocument();
+    });
+  });
 });
