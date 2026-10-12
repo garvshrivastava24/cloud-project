@@ -11,8 +11,9 @@ function createApp(db) {
   const app = express();
 
   // Middleware
+  app.disable('x-powered-by'); // Remove Express fingerprint header
   app.use(cors());
-  app.use(express.json());
+  app.use(express.json({ limit: '10kb' })); // Reject oversized payloads
 
   // Handle invalid JSON body syntax errors gracefully
   app.use((err, req, res, next) => {
@@ -37,6 +38,7 @@ function createApp(db) {
           status: 'ok',
           message: 'Backend is running and database is accessible.',
           timestamp: new Date().toISOString(),
+          version: process.env.npm_package_version || '1.0.0',
         });
       } else {
         return res.status(500).json({

@@ -54,11 +54,31 @@ function createStudentRouter(db) {
     return errors;
   }
 
-  // GET /api/students - List all students
+  // GET /api/students - List all students (supports ?search= and ?course= filters)
   router.get('/', (req, res) => {
     try {
-      const statement = db.prepare('SELECT id, name, email, course, semester, created_at FROM students ORDER BY id DESC');
-      const students = statement.all();
+      const { search, course } = req.query;
+      let query = 'SELECT id, name, email, course, semester, created_at FROM students';
+      const params = [];
+
+      // Build optional WHERE clause for search/course filters
+      const conditions = [];
+      if (search && typeof search === 'string' && search.trim().length > 0) {
+        conditions.push('(name LIKE ? OR email LIKE ?)');
+        const term = `%${search.trim()}%`;
+        params.push(term, term);
+      }
+      if (course && typeof course === 'string' && course.trim().length > 0) {
+        conditions.push('course = ?');
+        params.push(course.trim());
+      }
+      if (conditions.length > 0) {
+        query += ' WHERE ' + conditions.join(' AND ');
+      }
+      query += ' ORDER BY id DESC';
+
+      const statement = db.prepare(query);
+      const students = statement.all(...params);
       return res.status(200).json({
         success: true,
         count: students.length,
