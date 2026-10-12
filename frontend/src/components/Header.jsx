@@ -1,7 +1,10 @@
 import React from 'react';
 
-export default function Header({ currentView = 'dashboard' }) {
+export default function Header({ currentView = 'dashboard', currentUser, onLogout }) {
   const isStudents = currentView === 'students';
+  const displayName = currentUser?.name || 'College Admin';
+  const displayRole = currentUser?.role || 'Administrator';
+  const displayInitials = currentUser?.avatarInitials || 'AD';
 
   return (
     <header className="dashboard-topbar">
@@ -14,14 +17,28 @@ export default function Header({ currentView = 'dashboard' }) {
         </span>
       </div>
 
-      <div className="topbar-user">
-        <div className="user-avatar" aria-hidden="true">
-          <span>AD</span>
+      <div className="topbar-user-group">
+        <div className="topbar-user">
+          <div className="user-avatar" aria-hidden="true">
+            <span>{displayInitials}</span>
+          </div>
+          <div className="user-meta">
+            <span className="user-name">{displayName}</span>
+            <span className="user-role">{displayRole}</span>
+          </div>
         </div>
-        <div className="user-meta">
-          <span className="user-name">College Admin</span>
-          <span className="user-role">Administrator</span>
-        </div>
+        {onLogout && (
+          <button
+            type="button"
+            className="btn-header-logout"
+            onClick={onLogout}
+            title="Log out of Administrator session"
+            aria-label="Logout"
+          >
+            <span className="logout-icon" aria-hidden="true">⏻</span>
+            <span>Logout</span>
+          </button>
+        )}
       </div>
     </header>
   );
