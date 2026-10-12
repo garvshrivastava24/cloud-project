@@ -13,6 +13,7 @@ export default function FilterToolbar({
   totalCount,
   filteredCount,
   onOpenAddModal,
+  onExportCsv,
 }) {
   return (
     <div className="filter-panel" aria-label="Search and Filter Controls">
@@ -36,6 +37,17 @@ export default function FilterToolbar({
         </div>
 
         <div className="actions-group">
+          {onExportCsv && (
+            <button
+              type="button"
+              className="btn btn-secondary btn-export-csv"
+              onClick={onExportCsv}
+              disabled={filteredCount === 0}
+              aria-label="Export filtered students as CSV"
+            >
+              <span aria-hidden="true">📥</span> Export CSV
+            </button>
+          )}
           <button
             type="button"
             className="btn btn-primary btn-add"

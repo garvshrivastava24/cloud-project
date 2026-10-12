@@ -1,14 +1,23 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
+import Pagination from './Pagination';
 
 export default function StudentTable({
   students = [],
   onEdit,
   onDelete,
+  onViewDetails,
   hasActiveFilters = false,
   onClearFilters,
+  pageSize = 10,
 }) {
   const [sortField, setSortField] = useState('id');
   const [sortDirection, setSortDirection] = useState('desc'); // 'asc' | 'desc'
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Requirement: Reset to page 1 whenever search/filter changes (i.e. students list changes)
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [students]);
 
   const handleSort = (field) => {
     if (sortField === field) {
@@ -38,6 +47,16 @@ export default function StudentTable({
       return 0;
     });
   }, [students, sortField, sortDirection]);
+
+  // Pagination calculations
+  const totalPages = Math.max(1, Math.ceil(sortedStudents.length / pageSize));
+  // Guarantee currentPage stays within valid bounds
+  const safeCurrentPage = Math.min(Math.max(1, currentPage), totalPages);
+
+  const paginatedStudents = useMemo(() => {
+    const startIndex = (safeCurrentPage - 1) * pageSize;
+    return sortedStudents.slice(startIndex, startIndex + pageSize);
+  }, [sortedStudents, safeCurrentPage, pageSize]);
 
   if (students.length === 0) {
     return (
@@ -139,13 +158,24 @@ export default function StudentTable({
             </tr>
           </thead>
           <tbody>
-            {sortedStudents.map((student) => (
+            {paginatedStudents.map((student) => (
               <tr key={student.id}>
                 <td className="cell-id">
                   <span className="id-badge">#{student.id}</span>
                 </td>
                 <td className="cell-name">
-                  <span className="student-name-text">{student.name}</span>
+                  {onViewDetails ? (
+                    <button
+                      type="button"
+                      className="student-name-link"
+                      onClick={() => onViewDetails(student)}
+                      title={`View details for ${student.name}`}
+                    >
+                      {student.name}
+                    </button>
+                  ) : (
+                    <span className="student-name-text">{student.name}</span>
+                  )}
                 </td>
                 <td className="cell-email">
                   <span className="email-text">{student.email}</span>
@@ -184,6 +214,15 @@ export default function StudentTable({
           </tbody>
         </table>
       </div>
+
+      {/* Pagination Bar */}
+      <Pagination
+        currentPage={safeCurrentPage}
+        totalPages={totalPages}
+        onPageChange={setCurrentPage}
+        totalItems={sortedStudents.length}
+        pageSize={pageSize}
+      />
     </div>
   );
 }

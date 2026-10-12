@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function RecentEnrollmentsTable({ students = [], onViewAllStudents, onEdit }) {
+export default function RecentEnrollmentsTable({ students = [], onViewAllStudents, onEdit, onViewDetails }) {
   // Take the 5 most recent students
   const recentStudents = [...students].slice(0, 5);
 
@@ -46,7 +46,18 @@ export default function RecentEnrollmentsTable({ students = [], onViewAllStudent
                     <span className="id-badge">#{student.id}</span>
                   </td>
                   <td className="cell-name">
-                    <span className="student-name-text">{student.name}</span>
+                    {onViewDetails ? (
+                      <button
+                        type="button"
+                        className="student-name-link"
+                        onClick={() => onViewDetails(student)}
+                        title={`View details for ${student.name}`}
+                      >
+                        {student.name}
+                      </button>
+                    ) : (
+                      <span className="student-name-text">{student.name}</span>
+                    )}
                   </td>
                   <td className="cell-email">
                     <span className="email-text">{student.email}</span>

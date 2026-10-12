@@ -1,6 +1,13 @@
 import React from 'react';
+import DarkModeToggle from './DarkModeToggle';
 
-export default function Header({ currentView = 'dashboard', currentUser, onLogout }) {
+export default function Header({
+  currentView = 'dashboard',
+  currentUser,
+  onLogout,
+  theme,
+  onToggleTheme,
+}) {
   const isStudents = currentView === 'students';
   const displayName = currentUser?.name || 'College Admin';
   const displayRole = currentUser?.role || 'Administrator';
@@ -18,6 +25,9 @@ export default function Header({ currentView = 'dashboard', currentUser, onLogou
       </div>
 
       <div className="topbar-user-group">
+        {onToggleTheme && (
+          <DarkModeToggle theme={theme} onToggle={onToggleTheme} />
+        )}
         <div className="topbar-user">
           <div className="user-avatar" aria-hidden="true">
             <span>{displayInitials}</span>
