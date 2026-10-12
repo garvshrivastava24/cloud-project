@@ -614,4 +614,70 @@ describe('Student Management System - Frontend Tests', () => {
       expect(screen.getByText('SA')).toBeInTheDocument();
     });
   });
+
+  // 21. Clicking a student name in directory opens the student detail page
+  it('opens student detail page when clicking a student name in directory', async () => {
+    window.location.hash = '#/students';
+    api.getStudents.mockResolvedValueOnce({
+      success: true,
+      count: mockStudents.length,
+      data: mockStudents,
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Aarav Sharma')).toBeInTheDocument();
+    });
+
+    // Click on the student name link
+    const studentNameLink = screen.getByTitle('View details for Aarav Sharma');
+    fireEvent.click(studentNameLink);
+
+    // Student detail page should render with all sections
+    await waitFor(() => {
+      expect(screen.getByText('Personal Information')).toBeInTheDocument();
+      expect(screen.getByText('Academic Information')).toBeInTheDocument();
+      expect(screen.getByText('Academic Progress')).toBeInTheDocument();
+      expect(screen.getByText('Enrollment Details')).toBeInTheDocument();
+      // email appears in both hero card and Personal Info card
+      const emailEls = screen.getAllByText('aarav@example.edu');
+      expect(emailEls.length).toBeGreaterThanOrEqual(1);
+      expect(screen.getByLabelText('Go back to student directory')).toBeInTheDocument();
+    });
+  });
+
+  // 22. Back button on student detail returns to student directory
+  it('navigates back to student directory from student detail page', async () => {
+    window.location.hash = '#/students';
+    api.getStudents.mockResolvedValueOnce({
+      success: true,
+      count: mockStudents.length,
+      data: mockStudents,
+    });
+
+    render(<App />);
+
+    await waitFor(() => {
+      expect(screen.getByText('Aarav Sharma')).toBeInTheDocument();
+    });
+
+    // Navigate to detail page
+    fireEvent.click(screen.getByTitle('View details for Aarav Sharma'));
+
+    await waitFor(() => {
+      expect(screen.getByText('Personal Information')).toBeInTheDocument();
+    });
+
+    // Click "Back to Directory"
+    const backBtn = screen.getByLabelText('Go back to student directory');
+    fireEvent.click(backBtn);
+
+    // Should be back on students directory
+    await waitFor(() => {
+      expect(screen.getByRole('heading', { name: 'Student Directory', level: 1 })).toBeInTheDocument();
+      expect(screen.getByText('All Students')).toBeInTheDocument();
+    });
+  });
 });
+

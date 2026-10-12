@@ -8,7 +8,11 @@ import StudentTable from './components/StudentTable';
 import RecentEnrollmentsTable from './components/RecentEnrollmentsTable';
 import StudentFormModal from './components/StudentFormModal';
 import DeleteConfirmModal from './components/DeleteConfirmModal';
+import StudentDetailView from './components/StudentDetailView';
 import LoginPage from './components/LoginPage';
+import { convertStudentsToCsv } from './components/ExportCsvButton';
+import { useTheme } from './components/DarkModeToggle';
+import { TableSkeleton, CardsSkeleton } from './components/LoadingSkeleton';
 import { api } from './api';
 
 // Helper to determine initial admin user session
@@ -44,10 +48,14 @@ function getViewFromHash() {
   if (hash === '#/students' || hash === '#students') {
     return 'students';
   }
+  if (hash.startsWith('#/student/')) {
+    return 'student-detail';
+  }
   return 'dashboard';
 }
 
 export default function App() {
+  const { theme, toggleTheme } = useTheme();
   const [currentUser, setCurrentUser] = useState(getInitialUser);
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -67,6 +75,9 @@ export default function App() {
   // Delete Modal State
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [studentToDelete, setStudentToDelete] = useState(null);
+
+  // Student Detail View State — tracks which student profile is open
+  const [selectedDetailStudent, setSelectedDetailStudent] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
 
   // Listen to browser hash changes (Back, Forward, initial refresh)
@@ -207,6 +218,38 @@ export default function App() {
     }
   };
 
+  const handleExportCsv = () => {
+    if (!filteredStudents || filteredStudents.length === 0) return;
+    try {
+      const csvContent = convertStudentsToCsv(filteredStudents);
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'students.csv');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+      showNotification('success', `Exported ${filteredStudents.length} student records to CSV.`);
+    } catch (err) {
+      showNotification('error', 'Failed to export CSV: ' + (err.message || 'unknown error'));
+    }
+  };
+
+  // Open student detail page when clicking a student name
+  const handleViewStudentDetail = useCallback((student) => {
+    setSelectedDetailStudent(student);
+    setCurrentView('student-detail');
+    window.location.hash = `#/student/${student.id}`;
+  }, []);
+
+  // Go back from student detail to the students directory
+  const handleBackFromDetail = useCallback(() => {
+    setSelectedDetailStudent(null);
+    handleNavigate('students');
+  }, [handleNavigate]);
+
   const handleLoginSuccess = (user) => {
     setCurrentUser(user);
     showNotification('success', `Welcome, ${user.name}! Administration session started.`);
@@ -242,6 +285,8 @@ export default function App() {
           currentView={currentView}
           currentUser={currentUser}
           onLogout={handleLogout}
+          theme={theme}
+          onToggleTheme={toggleTheme}
         />
 
         <main className="dashboard-body">
@@ -300,6 +345,7 @@ export default function App() {
                     students={students}
                     onViewAllStudents={() => handleNavigate('students')}
                     onEdit={handleOpenEditModal}
+                    onViewDetails={handleViewStudentDetail}
                   />
                 )}
               </section>
@@ -343,6 +389,7 @@ export default function App() {
                   totalCount={students.length}
                   filteredCount={filteredStudents.length}
                   onOpenAddModal={handleOpenAddModal}
+                  onExportCsv={handleExportCsv}
                 />
 
                 {/* Loading or Full Student Table */}
@@ -358,12 +405,23 @@ export default function App() {
                     students={filteredStudents}
                     onEdit={handleOpenEditModal}
                     onDelete={handleOpenDeleteModal}
+                    onViewDetails={handleViewStudentDetail}
                     hasActiveFilters={hasActiveFilters}
                     onClearFilters={handleClearFilters}
                   />
                 )}
               </section>
             </div>
+          )}
+
+          {/* PAGE 3: STUDENT DETAIL VIEW */}
+          {currentView === 'student-detail' && (
+            <StudentDetailView
+              student={selectedDetailStudent}
+              onBack={handleBackFromDetail}
+              onEdit={handleOpenEditModal}
+              onDelete={handleOpenDeleteModal}
+            />
           )}
         </main>
       </div>
