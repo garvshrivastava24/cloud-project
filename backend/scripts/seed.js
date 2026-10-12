@@ -25,6 +25,72 @@ const seedStudents = [
     course: 'Data Science',
     semester: 2,
   },
+  {
+    name: 'Ananya Mishra',
+    email: 'ananya.mishra@example.edu',
+    course: 'Computer Science & Engineering',
+    semester: 4,
+  },
+  {
+    name: 'Vikram Singh',
+    email: 'vikram.singh@example.edu',
+    course: 'Mechanical Engineering',
+    semester: 6,
+  },
+  {
+    name: 'Ishita Reddy',
+    email: 'ishita.reddy@example.edu',
+    course: 'Information Technology',
+    semester: 2,
+  },
+  {
+    name: 'Arjun Nair',
+    email: 'arjun.nair@example.edu',
+    course: 'Civil Engineering',
+    semester: 8,
+  },
+  {
+    name: 'Kavya Joshi',
+    email: 'kavya.joshi@example.edu',
+    course: 'Data Science',
+    semester: 6,
+  },
+  {
+    name: 'Rahul Tiwari',
+    email: 'rahul.tiwari@example.edu',
+    course: 'Electrical & Electronics',
+    semester: 4,
+  },
+  {
+    name: 'Meera Iyer',
+    email: 'meera.iyer@example.edu',
+    course: 'Computer Science & Engineering',
+    semester: 8,
+  },
+  {
+    name: 'Aditya Kapoor',
+    email: 'aditya.kapoor@example.edu',
+    course: 'Mechanical Engineering',
+    semester: 2,
+  },
+  {
+    name: 'Divya Chauhan',
+    email: 'divya.chauhan@example.edu',
+    course: 'Electronics & Communication',
+    semester: 4,
+  },
+  {
+    name: 'Kunal Deshmukh',
+    email: 'kunal.deshmukh@example.edu',
+    course: 'Information Technology',
+    semester: 6,
+  },
+  {
+    name: 'Riya Banerjee',
+    email: 'riya.banerjee@example.edu',
+    course: 'Data Science',
+    semester: 2,
+  },
 ];
 
 function seed() {
