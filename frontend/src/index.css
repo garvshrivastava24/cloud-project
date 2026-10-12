@@ -1553,3 +1553,717 @@ body {
   text-align: center;
 }
 
+/* ==========================================================================
+   Feature 1 & 2: Export CSV & Pagination Styling
+   ========================================================================== */
+.btn-export-csv {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.pagination-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border);
+  background-color: var(--bg-card);
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.pagination-info {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.pagination-info strong {
+  color: var(--text-main);
+}
+
+.pagination-page-label {
+  font-weight: 500;
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.btn-pagination {
+  padding: 0.4rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.pagination-page-pill {
+  padding: 0.35rem 0.75rem;
+  background-color: var(--bg-app);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+/* Student Name Link for Details Modal */
+.student-name-link {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  text-align: left;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+}
+
+.student-name-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   Feature 3: Dark Mode Theme & Toggle Button
+   ========================================================================== */
+.btn-theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.45rem 0.75rem;
+  background-color: var(--bg-app);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 0.825rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-theme-toggle:hover {
+  background-color: var(--border);
+  color: var(--text-main);
+}
+
+.theme-toggle-icon {
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+/* Dark Mode Variables applied via [data-theme="dark"] on <html> */
+html[data-theme="dark"] {
+  --primary: #3b82f6;
+  --primary-hover: #60a5fa;
+  --primary-light: #1e293b;
+  --primary-border: #2563eb;
+  --text-main: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --bg-app: #090d16;
+  --bg-sidebar: #0b1120;
+  --bg-sidebar-hover: #1e293b;
+  --bg-card: #0f172a;
+  --border: #1e293b;
+  --border-focus: #60a5fa;
+  --shadow-xs: 0 1px 2px 0 rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+}
+
+html[data-theme="dark"] body {
+  background-color: var(--bg-app);
+  color: var(--text-main);
+}
+
+html[data-theme="dark"] .dashboard-topbar {
+  background-color: var(--bg-card);
+  border-bottom-color: var(--border);
+}
+
+html[data-theme="dark"] .dashboard-sidebar {
+  border-right-color: var(--border);
+}
+
+html[data-theme="dark"] .topbar-heading,
+html[data-theme="dark"] .hero-title,
+html[data-theme="dark"] .management-title-group h2,
+html[data-theme="dark"] .user-name {
+  color: var(--text-main);
+}
+
+html[data-theme="dark"] .topbar-env-tag {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .btn-header-logout {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .btn-header-logout:hover {
+  background-color: rgba(220, 38, 38, 0.2);
+  color: #fca5a5;
+  border-color: rgba(220, 38, 38, 0.4);
+}
+
+html[data-theme="dark"] .table-card {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .students-table th {
+  background-color: #0b1120;
+  color: var(--text-muted);
+  border-bottom-color: var(--border);
+}
+
+html[data-theme="dark"] .students-table td {
+  border-bottom-color: var(--border);
+}
+
+html[data-theme="dark"] .students-table tbody tr:hover {
+  background-color: rgba(30, 41, 59, 0.6);
+}
+
+html[data-theme="dark"] .filter-panel {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .search-input,
+html[data-theme="dark"] .filter-select {
+  background-color: #1e293b;
+  color: var(--text-main);
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .stat-card {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .modal-dialog {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .modal-header,
+html[data-theme="dark"] .modal-footer {
+  background-color: #0b1120;
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .modal-title-group h2 {
+  color: var(--text-main);
+}
+
+html[data-theme="dark"] .form-group input,
+html[data-theme="dark"] .form-group select {
+  background-color: #1e293b;
+  color: var(--text-main);
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .id-badge {
+  background-color: #1e293b;
+  color: #93c5fd;
+  border-color: #2563eb;
+}
+
+html[data-theme="dark"] .course-pill {
+  background-color: #1e293b;
+  color: #cbd5e1;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .semester-badge {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: #a5b4fc;
+}
+
+html[data-theme="dark"] .btn-secondary {
+  background-color: #1e293b;
+  color: #f1f5f9;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .btn-secondary:hover {
+  background-color: #334155;
+}
+
+
+/* ===================================================================
+   STUDENT DETAIL PAGE — Full-page student profile dashboard
+   =================================================================== */
+
+/* Breadcrumb Navigation Bar */
+.detail-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--primary);
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary-border);
+}
+
+.breadcrumb-separator {
+  color: var(--text-muted);
+  margin: 0 0.25rem;
+}
+
+.breadcrumb-current {
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+/* Hero Profile Card */
+.detail-hero-card {
+  background: linear-gradient(135deg, var(--bg-card), var(--primary-light));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-md);
+}
+
+.detail-hero-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.detail-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+  letter-spacing: 1px;
+}
+
+.detail-hero-info {
+  flex: 1;
+  min-width: 200px;
+}
+
+.detail-student-name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+  letter-spacing: -0.02em;
+}
+
+.detail-student-email {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.detail-badges-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.detail-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.detail-badge-course {
+  background-color: #eff6ff;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+}
+
+.detail-badge-semester {
+  background-color: #f0fdf4;
+  color: #15803d;
+  border-color: #bbf7d0;
+}
+
+.detail-badge-standing {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.detail-hero-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+
+/* Info Cards Grid — 2 columns */
+.detail-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+}
+
+.detail-info-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.detail-info-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.detail-card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background-color: rgba(0, 0, 0, 0.015);
+}
+
+.detail-card-icon {
+  font-size: 1.2rem;
+}
+
+.detail-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.detail-card-body {
+  padding: 1rem 1.25rem;
+}
+
+/* Info Rows inside cards */
+.detail-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.detail-info-row:last-child {
+  border-bottom: none;
+}
+
+.detail-info-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.detail-info-value {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-main);
+  text-align: right;
+}
+
+.detail-info-email {
+  color: var(--primary);
+}
+
+.detail-status-active {
+  color: var(--success);
+  font-weight: 600;
+  font-size: 0.85rem;
+}
+
+.detail-standing-pill {
+  display: inline-block;
+  padding: 0.2rem 0.65rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+/* Academic Progress Section */
+.detail-progress-section {
+  margin-bottom: 1.25rem;
+}
+
+.detail-progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.detail-progress-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.detail-progress-percent {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.detail-progress-bar-bg {
+  width: 100%;
+  height: 10px;
+  background-color: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.detail-progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #2563eb, #7c3aed);
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.detail-progress-note {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-top: 0.6rem;
+  font-style: italic;
+}
+
+/* Semester Timeline Dots */
+.detail-semester-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.4rem;
+  padding-top: 0.5rem;
+}
+
+.detail-sem-dot {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.detail-sem-dot.completed {
+  background-color: var(--primary);
+  color: #ffffff;
+  border-color: var(--primary);
+}
+
+.detail-sem-dot.current {
+  background-color: #ffffff;
+  color: var(--primary);
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.detail-sem-dot.upcoming {
+  background-color: var(--border);
+  color: var(--text-muted);
+  border-color: var(--border);
+}
+
+.sem-dot-number {
+  line-height: 1;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(37, 99, 235, 0.12); }
+}
+
+/* Clickable student name in tables */
+.student-name-link {
+  background: none;
+  border: none;
+  color: var(--primary);
+  font-weight: 600;
+  font-size: inherit;
+  cursor: pointer;
+  padding: 0;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.student-name-link:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+/* Empty State for Detail Page */
+.detail-empty-state {
+  text-align: center;
+  padding: 4rem 2rem;
+}
+
+.detail-empty-state h3 {
+  margin: 1rem 0 0.5rem;
+  font-size: 1.25rem;
+  color: var(--text-main);
+}
+
+.detail-empty-state p {
+  color: var(--text-muted);
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive: Stack cards on smaller screens */
+@media (max-width: 768px) {
+  .detail-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .detail-hero-actions {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .detail-badges-row {
+    justify-content: center;
+  }
+
+  .detail-info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+
+  .detail-info-value {
+    text-align: left;
+  }
+}
+
+/* --- Dark Mode Overrides for Student Detail Page --- */
+html[data-theme="dark"] .detail-hero-card {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .btn-back {
+  color: #93c5fd;
+  border-color: #334155;
+}
+
+html[data-theme="dark"] .btn-back:hover {
+  background-color: rgba(37, 99, 235, 0.15);
+  border-color: #2563eb;
+}
+
+html[data-theme="dark"] .breadcrumb-current {
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .detail-student-name {
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .detail-badge-course {
+  background-color: rgba(37, 99, 235, 0.15);
+  color: #93c5fd;
+  border-color: rgba(37, 99, 235, 0.3);
+}
+
+html[data-theme="dark"] .detail-badge-semester {
+  background-color: rgba(22, 163, 74, 0.15);
+  color: #86efac;
+  border-color: rgba(22, 163, 74, 0.3);
+}
+
+html[data-theme="dark"] .detail-info-card {
+  background-color: var(--bg-card);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .detail-card-header {
+  background-color: rgba(0, 0, 0, 0.2);
+  border-color: var(--border);
+}
+
+html[data-theme="dark"] .detail-card-title {
+  color: #f1f5f9;
+}
+
+html[data-theme="dark"] .detail-info-row {
+  border-bottom-color: var(--border);
+}
+
+html[data-theme="dark"] .detail-info-value {
+  color: #e2e8f0;
+}
+
+html[data-theme="dark"] .detail-progress-bar-bg {
+  background-color: #334155;
+}
+
+html[data-theme="dark"] .detail-sem-dot.current {
+  background-color: #1e293b;
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .detail-sem-dot.upcoming {
+  background-color: #334155;
+  color: #64748b;
+  border-color: #475569;
+}
+
+html[data-theme="dark"] .student-name-link {
+  color: #93c5fd;
+}
+
+html[data-theme="dark"] .student-name-link:hover {
+  color: #bfdbfe;
+}
+
