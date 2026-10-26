@@ -623,4 +623,3 @@ For your college viva or practical evaluation, follow this 5-step demonstration 
 5. **Demonstrate Continuous Integration in GitHub Actions**:
    - Show the GitHub Actions tab in your repository with green checkmarks on recent commits.
    - Explain how GitHub Actions executes on every git push to verify code stability automatically.
-thank you
